@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Da Vinci Ceramics - Sales Estimator</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>Da Vinci Ceramics | Tile Estimator</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+
 :root{
-    --gold:#D4AF37;
-    --dark:#0f172a;
-    --card:#1e293b;
-    --light:#f8fafc;
-    --border:#334155;
+    --gold:#C9A227;
+    --black:#111111;
+    --white:#ffffff;
+    --bg:#f7f7f5;
+    --border:#e5e5e5;
+    --text:#222;
+    --green:#25D366;
 }
+
 
 *{
     margin:0;
@@ -23,343 +29,925 @@
     font-family:'Poppins',sans-serif;
 }
 
+
 body{
-    background:linear-gradient(135deg,#0f172a,#1e293b);
-    padding:30px;
-    color:#fff;
+
+    background:var(--bg);
+    color:var(--text);
+    padding-bottom:90px;
+
 }
 
-.container{
-    max-width:1200px;
-    margin:auto;
-}
+
+/* HEADER */
 
 .header{
+
+    background:white;
+    padding:25px 20px;
     text-align:center;
-    margin-bottom:30px;
+    border-bottom:1px solid var(--border);
+
 }
 
-.header h1{
-    color:var(--gold);
-    font-size:42px;
+
+.logo{
+
+    font-size:34px;
+    font-weight:700;
+    color:#000;
+    letter-spacing:1px;
+
 }
+
+
+
+
 
 .header p{
-    color:#cbd5e1;
-    margin-top:8px;
+
+    margin-top:5px;
+    font-size:14px;
+    color:#777;
+
 }
 
-.grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:25px;
+
+
+/* MAIN */
+
+.container{
+
+    width:100%;
+    max-width:650px;
+    margin:auto;
+    padding:18px;
+
 }
+
+
 
 .card{
-    background:rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.08);
-    backdrop-filter:blur(10px);
+
+    background:white;
     border-radius:20px;
-    padding:25px;
+    padding:22px;
+    margin-bottom:18px;
+    box-shadow:0 5px 25px rgba(0,0,0,.06);
+
 }
 
-h2{
-    margin-bottom:20px;
-    color:var(--gold);
+
+
+.title{
+
+    font-size:20px;
+    font-weight:700;
+    margin-bottom:18px;
+
 }
+
+
 
 label{
+
     display:block;
-    margin-bottom:8px;
-    color:#cbd5e1;
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:7px;
+
 }
 
-input,select{
+
+
+input,
+select{
+
     width:100%;
-    padding:14px;
-    border:none;
+    height:52px;
     border-radius:12px;
+    border:1px solid #ddd;
+    padding:0 15px;
+    font-size:16px;
     margin-bottom:18px;
-    font-size:15px;
+    background:white;
+
 }
+
+
+
+
+/* TILE CARDS */
 
 .tile-grid{
+
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:12px;
+
 }
+
+
 
 .tile{
-    border:2px solid var(--border);
-    padding:15px;
-    text-align:center;
-    border-radius:14px;
+
+    min-height:85px;
+    border:2px solid #e2e2e2;
+    border-radius:16px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
     cursor:pointer;
-    transition:.3s;
+    font-weight:600;
+    font-size:14px;
+    transition:.2s;
+
 }
+
+
+.tile small{
+
+    margin-top:5px;
+    font-size:12px;
+    font-weight:400;
+    color:#777;
+
+}
+
+
 
 .tile.active{
+
     background:var(--gold);
-    color:#000;
-    font-weight:600;
+    border-color:var(--gold);
+    color:white;
+
 }
 
-.waste-grid{
+
+.tile.active small{
+
+    color:white;
+
+}
+
+
+
+
+/* INSTALLATION */
+
+.install-grid{
+
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(3,1fr);
     gap:10px;
-    margin-top:15px;
+
 }
 
-.waste{
-    padding:12px;
-    border-radius:10px;
-    border:1px solid var(--border);
-    text-align:center;
-    cursor:pointer;
-}
 
-.waste.active{
-    background:var(--gold);
-    color:#000;
-    font-weight:600;
-}
 
-button{
-    width:100%;
-    margin-top:25px;
-    padding:16px;
-    border:none;
+.install{
+
+    border:2px solid #ddd;
     border-radius:14px;
-    background:var(--gold);
-    color:#000;
-    font-weight:700;
-    font-size:16px;
+    padding:14px 5px;
+    text-align:center;
+    font-size:13px;
     cursor:pointer;
+    font-weight:600;
+
 }
 
-.result-row{
+
+
+.install.active{
+
+    background:#111;
+    color:white;
+    border-color:#111;
+
+}
+
+
+
+
+/* BUTTON */
+
+.main-btn{
+
+    width:100%;
+    height:58px;
+    background:#111;
+    color:white;
+    border:none;
+    border-radius:18px;
+    font-size:17px;
+    font-weight:700;
+    cursor:pointer;
+
+}
+
+
+
+
+/* RESULT */
+
+.result-card{
+
+    background:#111;
+    color:white;
+
+}
+
+
+
+.result-card .title{
+
+    color:var(--gold);
+
+}
+
+
+
+.row{
+
     display:flex;
     justify-content:space-between;
-    padding:14px 0;
-    border-bottom:1px solid rgba(255,255,255,.08);
+    padding:13px 0;
+    border-bottom:1px solid rgba(255,255,255,.15);
+    font-size:14px;
+
 }
 
-.result-row strong{
+
+
+.row strong{
+
     color:var(--gold);
+
 }
+
+
 
 .summary{
+
     margin-top:20px;
-    background:rgba(212,175,55,.1);
-    border:1px solid rgba(212,175,55,.3);
+    background:rgba(201,162,39,.15);
     padding:18px;
     border-radius:15px;
+
 }
+
+
 
 .summary h3{
+
     color:var(--gold);
-    margin-bottom:10px;
+    margin-bottom:8px;
+
 }
 
-.badges{
-    margin-top:20px;
+
+
+/* SHARE */
+
+.share-btn{
+
+    width:100%;
+    height:50px;
+    margin-top:15px;
+    background:var(--green);
+    color:white;
+    border:none;
+    border-radius:14px;
+    font-weight:700;
+    font-size:16px;
+
 }
 
-.badges div{
-    margin-bottom:10px;
-    color:#dbeafe;
+
+
+
+/* MOBILE */
+
+@media(max-width:400px){
+
+.logo{
+
+font-size:28px;
+
 }
 
-@media(max-width:900px){
-    .grid{
-        grid-template-columns:1fr;
-    }
+
+.install-grid{
+
+grid-template-columns:1fr;
+
 }
+
+}
+
+
+
 </style>
+
 </head>
+
+
 <body>
+
+
+<div class="header">
+
+<div class="logo">
+Da Vinci <span>Ceramics</span>
+</div>
+
+<p>Professional Tile Quantity Estimator</p>
+
+</div>
+
+
 
 <div class="container">
 
-<div class="header">
-    <h1>Da Vinci Ceramics</h1>
-    <p>Professional Tile Quantity Estimator</p>
-</div>
+    <div class="card">
 
-<div class="grid">
+<div class="title">Project Details</div>
 
-<div class="card">
-
-<h2>Project Information</h2>
 
 <label>Project Name</label>
-<input type="text" id="projectName" placeholder="Hotel, House, Office etc">
 
-<label>Area</label>
-<input type="number" id="area" placeholder="Enter total area">
+<input id="project" placeholder="House / Hotel / Office">
 
-<label>Area Unit</label>
+
+<label>Project Area</label>
+
+<input id="area" type="number" inputmode="decimal" placeholder="Enter area">
+
+
+<label>Measurement Unit</label>
+
 <select id="unit">
-    <option value="sqft">Square Feet</option>
-    <option value="sqm">Square Meters</option>
+
+<option value="sqft">Square Feet (Sq Ft)</option>
+
+<option value="sqm">Square Meter (Sq M)</option>
+
 </select>
 
-<h2>Select Tile Size</h2>
-
-<div class="tile-grid">
-<div class="tile active" data-size="300x300">300 × 300</div>
-<div class="tile" data-size="300x600">300 × 600</div>
-<div class="tile" data-size="600x600">600 × 600</div>
-<div class="tile" data-size="600x1200">600 × 1200</div>
-<div class="tile" data-size="800x800">800 × 800</div>
-<div class="tile" data-size="1200x1200">1200 × 1200</div>
-</div>
-
-<h2 style="margin-top:25px;">Installation Type</h2>
-
-<div class="waste-grid">
-<div class="waste active" data-waste="5">Standard</div>
-<div class="waste" data-waste="8">Large Format</div>
-<div class="waste" data-waste="10">Diagonal</div>
-<div class="waste" data-waste="15">Complex</div>
-</div>
-
-<button onclick="calculateEstimate()">
-Generate Estimate
-</button>
 
 </div>
+
+
+
 
 <div class="card">
 
-<h2>Project Estimate</h2>
 
-<div class="result-row">
+<div class="title">Select Tile Size</div>
+
+
+<div class="tile-grid">
+
+
+<div class="tile active" data-size="300x300">
+300 × 300 mm
+<small>1 × 1 ft</small>
+</div>
+
+
+<div class="tile" data-size="300x600">
+300 × 600 mm
+<small>1 × 2 ft</small>
+</div>
+
+
+<div class="tile" data-size="600x600">
+600 × 600 mm
+<small>2 × 2 ft</small>
+</div>
+
+
+<div class="tile" data-size="600x1200">
+600 × 1200 mm
+<small>2 × 4 ft</small>
+</div>
+
+
+<div class="tile" data-size="750x1500">
+750 × 1500 mm
+<small>2.5 × 5 ft</small>
+</div>
+
+
+<div class="tile" data-size="900x1800">
+900 × 1800 mm
+<small>3 × 6 ft</small>
+</div>
+
+
+<div class="tile" data-size="1200x1200">
+1200 × 1200 mm
+<small>4 × 4 ft</small>
+</div>
+
+
+<div class="tile" data-size="1200x2660">
+1200 × 2660 mm
+<small>4 × 8.8 ft</small>
+</div>
+
+
+<div class="tile" data-size="440x660">
+440 × 660 mm
+<small>1.4 × 2.2 ft</small>
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<div class="title">Installation Type</div>
+
+
+<div class="install-grid">
+
+
+<div class="install active" data-type="normal">
+
+Normal
+
+</div>
+
+
+<div class="install" data-type="diagonal">
+
+Diagonal
+
+</div>
+
+
+<div class="install" data-type="special">
+
+Special Design
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="card result-card">
+
+
+<div class="title">
+Estimate Result
+</div>
+
+
+
+<div class="row">
+
 <span>Project</span>
+
 <strong id="rProject">-</strong>
+
 </div>
 
-<div class="result-row">
-<span>Total Area</span>
-<strong id="rArea">0</strong>
+
+
+<div class="row">
+
+<span>Area</span>
+
+<strong id="rArea">-</strong>
+
 </div>
 
-<div class="result-row">
+
+
+<div class="row">
+
 <span>Tile Size</span>
-<strong id="rTile">300 × 300</strong>
+
+<strong id="rSize">-</strong>
+
 </div>
 
-<div class="result-row">
-<span>Tile Coverage</span>
-<strong id="rCoverage">0</strong>
+
+
+<div class="row">
+
+<span>Coverage Per Tile</span>
+
+<strong id="rCoverage">-</strong>
+
 </div>
 
-<div class="result-row">
-<span>Tiles Required</span>
-<strong id="rTiles">0</strong>
+
+
+<div class="row">
+
+<span>Tiles Needed</span>
+
+<strong id="rTiles">-</strong>
+
 </div>
 
-<div class="result-row">
-<span>Waste Allowance</span>
-<strong id="rWaste">0</strong>
+
+
+<div class="row">
+
+<span>Wastage</span>
+
+<strong id="rWaste">-</strong>
+
 </div>
 
-<div class="result-row">
+
+
+<div class="row">
+
 <span>Total Tiles</span>
-<strong id="rTotal">0</strong>
-</div>
 
-<div class="result-row">
-<span>Estimated Boxes</span>
-<strong id="rBoxes">0</strong>
-</div>
-
-<div class="summary">
-<h3>Recommendation</h3>
-<p id="recommendation">
-Enter project information and click Generate Estimate.
-</p>
-</div>
-
-<div class="badges">
-<div>✔ Includes cutting and breakage allowance</div>
-<div>✔ Industry-standard estimation method</div>
-<div>✔ Da Vinci Ceramics sales estimate</div>
-</div>
+<strong id="rTotal">-</strong>
 
 </div>
 
-</div>
+
+
+<div class="row">
+
+<span>Required Boxes</span>
+
+<strong id="rBoxes">-</strong>
 
 </div>
+
+
+
+
+<div class="summary" id="summary">
+
+Enter details and generate estimate.
+
+</div>
+
+
+
+<button class="share-btn" onclick="shareWhatsApp()">
+
+Share Estimate WhatsApp
+
+</button>
+
+
+</div>
+
+
+
+
+<button class="main-btn" onclick="calculate()">
+
+Generate Tile Estimate
+
+</button>
+
+
+
+</div>
+
+
 
 <script>
 
+
 let selectedTile="300x300";
-let selectedWaste=5;
+
+let installation="normal";
+
+
+
+/*
+IMPORTANT:
+Replace these with actual Da Vinci Ceramic packing details later.
+Value = tiles inside one box
+*/
+
+
+const boxDetails={
+
+"300x300":11,
+
+"300x600":6,
+
+"600x600":4,
+
+"600x1200":2,
+
+"750x1500":2,
+
+"900x1800":1,
+
+"1200x1200":1,
+
+"1200x2660":1,
+
+"440x660":6
+
+};
+
+
 
 document.querySelectorAll(".tile").forEach(tile=>{
-    tile.addEventListener("click",()=>{
-        document.querySelectorAll(".tile").forEach(t=>t.classList.remove("active"));
-        tile.classList.add("active");
-        selectedTile=tile.dataset.size;
-    });
-});
 
-document.querySelectorAll(".waste").forEach(waste=>{
-    waste.addEventListener("click",()=>{
-        document.querySelectorAll(".waste").forEach(w=>w.classList.remove("active"));
-        waste.classList.add("active");
-        selectedWaste=parseInt(waste.dataset.waste);
-    });
-});
 
-function calculateEstimate(){
+tile.onclick=function(){
 
-    let area=parseFloat(document.getElementById("area").value);
 
-    if(!area || area<=0){
-        alert("Enter a valid area.");
-        return;
-    }
+document.querySelectorAll(".tile")
+.forEach(t=>t.classList.remove("active"));
 
-    let project=document.getElementById("projectName").value || "Project";
 
-    let unit=document.getElementById("unit").value;
+this.classList.add("active");
 
-    if(unit==="sqm"){
-        area=area*10.7639;
-    }
 
-    let size=selectedTile.split("x");
+selectedTile=this.dataset.size;
 
-    let widthFt=parseFloat(size[0])/304.8;
-    let heightFt=parseFloat(size[1])/304.8;
 
-    let tileArea=widthFt*heightFt;
-
-    let tiles=Math.ceil(area/tileArea);
-
-    let waste=Math.ceil(tiles*(selectedWaste/100));
-
-    let total=tiles+waste;
-
-    let boxes=Math.ceil(total/4);
-
-    document.getElementById("rProject").textContent=project;
-    document.getElementById("rArea").textContent=area.toFixed(2)+" sq ft";
-    document.getElementById("rTile").textContent=selectedTile.replace("x"," × ")+" mm";
-    document.getElementById("rCoverage").textContent=tileArea.toFixed(2)+" sq ft";
-    document.getElementById("rTiles").textContent=tiles;
-    document.getElementById("rWaste").textContent=waste+" Tiles";
-    document.getElementById("rTotal").textContent=total;
-    document.getElementById("rBoxes").textContent=boxes;
-
-    document.getElementById("recommendation").innerHTML=
-        `<strong>${total} tiles</strong> are recommended for this project including a ${selectedWaste}% installation allowance for cutting, breakage and site adjustments. Estimated box requirement is <strong>${boxes}</strong> boxes.`;
 }
+
+
+});
+
+
+
+
+
+document.querySelectorAll(".install").forEach(item=>{
+
+
+item.onclick=function(){
+
+
+document.querySelectorAll(".install")
+.forEach(x=>x.classList.remove("active"));
+
+
+this.classList.add("active");
+
+
+installation=this.dataset.type;
+
+
+}
+
+
+});
+
+function calculate(){
+
+
+let area = Number(
+document.getElementById("area").value
+);
+
+
+
+if(!area){
+
+alert("Please enter project area");
+
+return;
+
+}
+
+
+
+let unit =
+document.getElementById("unit").value;
+
+
+
+if(unit==="sqm"){
+
+area = area * 10.7639;
+
+}
+
+
+
+
+// Convert tile mm to feet
+
+let dimensions = selectedTile.split("x");
+
+
+let widthMM = Number(dimensions[0]);
+
+let heightMM = Number(dimensions[1]);
+
+
+
+let widthFeet = widthMM / 304.8;
+
+let heightFeet = heightMM / 304.8;
+
+
+
+let coverage = widthFeet * heightFeet;
+
+
+
+// Calculate tiles
+
+let tilesRequired = Math.ceil(
+area / coverage
+);
+
+
+
+// Automatic wastage system
+
+let wastagePercent = 5;
+
+
+
+// Large format tiles
+
+if(
+widthMM >= 600 ||
+heightMM >= 1200
+){
+
+wastagePercent = 10;
+
+}
+
+
+
+// Special patterns
+
+if(
+installation==="diagonal" ||
+installation==="special"
+){
+
+wastagePercent = 15;
+
+}
+
+
+
+let wastageTiles = Math.ceil(
+tilesRequired * wastagePercent / 100
+);
+
+
+
+let totalTiles =
+tilesRequired + wastageTiles;
+
+
+
+let boxes = Math.ceil(
+totalTiles / boxDetails[selectedTile]
+);
+
+
+
+
+// Display result
+
+
+document.getElementById("rProject").innerText =
+
+document.getElementById("project").value || "Project";
+
+
+
+document.getElementById("rArea").innerText =
+
+area.toFixed(2)+" Sq Ft";
+
+
+
+document.getElementById("rSize").innerText =
+
+selectedTile+" mm";
+
+
+
+document.getElementById("rCoverage").innerText =
+
+coverage.toFixed(2)+" Sq Ft";
+
+
+
+document.getElementById("rTiles").innerText =
+
+tilesRequired+" Tiles";
+
+
+
+document.getElementById("rWaste").innerText =
+
+wastagePercent+"% ("+wastageTiles+" Tiles)";
+
+
+
+document.getElementById("rTotal").innerText =
+
+totalTiles+" Tiles";
+
+
+
+document.getElementById("rBoxes").innerText =
+
+boxes+" Boxes";
+
+
+
+
+
+document.getElementById("summary").innerHTML =
+
+`
+<h3>Recommended Order</h3>
+
+<p>
+Order <b>${totalTiles} tiles</b><br><br>
+
+Estimated requirement:
+<b>${boxes} boxes</b><br><br>
+
+Automatic wastage allowance:
+<b>${wastagePercent}%</b>
+</p>
+`;
+
+
+
+}
+
+
+
+
+function shareWhatsApp(){
+
+
+let message =
+
+"Da Vinci Ceramics Tile Estimate\n\n"+
+"Project: "+
+document.getElementById("rProject").innerText+
+"\n"+
+"Area: "+
+document.getElementById("rArea").innerText+
+"\n"+
+"Tile: "+
+document.getElementById("rSize").innerText+
+"\n"+
+"Total Tiles: "+
+document.getElementById("rTotal").innerText+
+"\n"+
+"Boxes: "+
+document.getElementById("rBoxes").innerText;
+
+
+
+window.open(
+
+"https://wa.me/?text="+
+encodeURIComponent(message)
+
+);
+
+
+}
+
+
+
 </script>
 
+
 </body>
+
 </html>
