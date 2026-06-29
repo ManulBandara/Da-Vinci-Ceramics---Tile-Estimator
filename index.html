@@ -130,6 +130,19 @@ input, select{
   .logo{ font-size:26px; }
   .custom-inputs .input-row{ grid-template-columns:1fr; }
 }
+
+.footer{
+  text-align:center;
+  margin-top:30px;
+  padding:20px;
+  color:#777;
+  font-size:13px;
+}
+.footer strong{
+  color:#C9A227;
+  font-weight:600;
+}
+
 </style>
 </head>
 <body>
@@ -231,6 +244,7 @@ input, select{
 
 <script>
 let selectedTile = "300x300";
+let hasWastage = false;
 
 // Tiles per box for preset sizes
 const tilesPerBox = {
@@ -292,7 +306,7 @@ function calculate() {
 
   const wastageRaw = document.getElementById("wastage").value;
   const wastage = (wastageRaw !== "" && Number(wastageRaw) > 0) ? Number(wastageRaw) : 0;
-  const hasWastage = wastage > 0;
+  hasWastage = wastage > 0;
 
   let coverage, boxQty, sizeLabel;
 
@@ -318,8 +332,8 @@ function calculate() {
   // Base tiles needed
   const baseTiles = Math.ceil(area / coverage);
   // Apply wastage
-  const wastageExtra = Math.ceil(baseTiles * (wastage / 100));
-  const totalTiles = baseTiles + wastageExtra;
+  const totalTiles = Math.ceil(baseTiles * (1 + wastage / 100));
+  const wastageExtra = totalTiles - baseTiles;
   const boxes = boxQty ? Math.ceil(totalTiles / boxQty) : null;
 
   // Display
@@ -360,5 +374,7 @@ function shareWhatsApp() {
 }
 </script>
 
+
+<footer class="footer">Developed by <strong>Da Vinci IT</strong></footer>
 </body>
 </html>
