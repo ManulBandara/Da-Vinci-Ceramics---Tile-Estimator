@@ -1,887 +1,364 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Da Vinci Ceramics | Tile Calculator</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-
 <style>
-
 :root{
-    --gold:#C9A227;
-    --black:#111111;
-    --white:#ffffff;
-    --bg:#f7f7f5;
-    --border:#e5e5e5;
+  --gold:#C9A227;
+  --black:#111111;
+  --white:#ffffff;
+  --bg:#f7f7f5;
+  --border:#e5e5e5;
 }
-
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
-
-
-
-body{
-
-    background:var(--bg);
-    color:#222;
-    padding-bottom:40px;
-
-}
-
-
-
+*{ margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+body{ background:var(--bg); color:#222; padding-bottom:40px; }
 
 /* HEADER */
+.header{ background:#fff; padding:25px 20px; text-align:center; border-bottom:1px solid var(--border); }
+.logo{ color:#000; font-size:32px; font-weight:700; letter-spacing:.5px; }
+.header p{ color:#777; font-size:14px; margin-top:6px; }
 
-.header{
+.container{ max-width:650px; width:100%; margin:auto; padding:18px; }
 
-    background:#fff;
-    padding:25px 20px;
-    text-align:center;
-    border-bottom:1px solid var(--border);
+.card{ background:white; border-radius:20px; padding:22px; margin-bottom:18px; box-shadow:0 5px 25px rgba(0,0,0,.06); }
 
+.title{ font-size:20px; font-weight:700; margin-bottom:18px; }
+
+label{ display:block; font-size:14px; font-weight:600; margin-bottom:8px; }
+
+input, select{
+  width:100%; height:52px; border:1px solid #ddd; border-radius:12px;
+  padding:0 15px; font-size:16px; margin-bottom:18px; background:white;
 }
 
-
-
-.logo{
-
-    color:#000;
-    font-size:32px;
-    font-weight:700;
-    letter-spacing:.5px;
-
-}
-
-
-
-.header p{
-
-    color:#777;
-    font-size:14px;
-    margin-top:6px;
-
-}
-
-
-
-
-
-.container{
-
-    max-width:650px;
-    width:100%;
-    margin:auto;
-    padding:18px;
-
-}
-
-
-
-
-.card{
-
-    background:white;
-    border-radius:20px;
-    padding:22px;
-    margin-bottom:18px;
-    box-shadow:0 5px 25px rgba(0,0,0,.06);
-
-}
-
-
-
-
-.title{
-
-    font-size:20px;
-    font-weight:700;
-    margin-bottom:18px;
-
-}
-
-
-
-
-label{
-
-    display:block;
-    font-size:14px;
-    font-weight:600;
-    margin-bottom:8px;
-
-}
-
-
-
-
-input,
-select{
-
-    width:100%;
-    height:52px;
-    border:1px solid #ddd;
-    border-radius:12px;
-    padding:0 15px;
-    font-size:16px;
-    margin-bottom:18px;
-    background:white;
-
-}
-
-
-
-
-
-/* TILE SELECTION */
-
-
-.tile-grid{
-
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-
-}
-
-
-
+/* TILE GRID */
+.tile-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
 
 .tile{
+  min-height:85px; border:2px solid #ddd; border-radius:16px;
+  display:flex; flex-direction:column; justify-content:center;
+  align-items:center; cursor:pointer; font-size:14px; font-weight:600;
+  transition: border-color .2s, background .2s;
+}
+.tile small{ color:#777; font-size:12px; margin-top:5px; }
+.tile.active{ background:var(--gold); border-color:var(--gold); color:white; }
+.tile.active small{ color:white; }
 
-    min-height:85px;
-    border:2px solid #ddd;
-    border-radius:16px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    cursor:pointer;
-    font-size:14px;
-    font-weight:600;
+/* CUSTOM TILE - spans full width */
+.tile.custom-tile{
+  grid-column: 1 / -1;
+  min-height:70px;
+  border-style: dashed;
+  border-color: #bbb;
+  background: #fafafa;
+  font-size:14px;
+  color: #555;
+}
+.tile.custom-tile.active{
+  background:var(--gold);
+  border-color:var(--gold);
+  color:white;
+  border-style:solid;
+}
+.tile.custom-tile.active small{ color:white; }
 
+/* CUSTOM INPUT SECTION */
+.custom-inputs{
+  display:none;
+  margin-top:14px;
+  background:#fffbf0;
+  border:1px solid #f0d98a;
+  border-radius:14px;
+  padding:16px;
+}
+.custom-inputs.visible{ display:block; }
+.custom-inputs label{ margin-bottom:6px; color:#555; }
+.custom-inputs .input-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.custom-inputs .input-row input{ margin-bottom:0; }
+.custom-inputs .hint{
+  font-size:12px; color:#888; margin-top:8px;
+}
+.custom-inputs p.section-label{
+  font-size:13px; font-weight:700; margin-bottom:10px; color:#C9A227;
 }
 
-
-
-
-.tile small{
-
-    color:#777;
-    font-size:12px;
-    margin-top:5px;
-
-}
-
-
-
-
-.tile.active{
-
-    background:var(--gold);
-    border-color:var(--gold);
-    color:white;
-
-}
-
-
-
-.tile.active small{
-
-    color:white;
-
-}
-
-
-
-
+/* TILES PER BOX OVERRIDE */
+.box-override{ margin-top:14px; }
+.box-override label{ font-size:13px; color:#555; }
+.box-override input{ height:46px; font-size:15px; }
 
 /* BUTTON */
-
-
 .calculate{
-
-    width:100%;
-    height:58px;
-    background:#111;
-    color:white;
-    border:none;
-    border-radius:18px;
-    font-size:17px;
-    font-weight:700;
-    cursor:pointer;
-
+  width:100%; height:58px; background:#111; color:white; border:none;
+  border-radius:18px; font-size:17px; font-weight:700; cursor:pointer;
 }
-
-
-
-
 
 /* RESULT */
-
-
-.result{
-
-    background:#111;
-    color:white;
-
-}
-
-
-
-
-.result .title{
-
-    color:var(--gold);
-
-}
-
-
-
-
+.result{ background:#111; color:white; }
+.result .title{ color:var(--gold); }
 .row{
-
-    display:flex;
-    justify-content:space-between;
-    padding:14px 0;
-    border-bottom:1px solid rgba(255,255,255,.15);
-    font-size:14px;
-
+  display:flex; justify-content:space-between;
+  padding:14px 0; border-bottom:1px solid rgba(255,255,255,.15); font-size:14px;
 }
-
-
-
-
-.row strong{
-
-    color:var(--gold);
-
-}
-
-
-
-
+.row strong{ color:var(--gold); }
 
 .summary{
-
-    margin-top:20px;
-    background:rgba(201,162,39,.15);
-    padding:18px;
-    border-radius:15px;
-
+  margin-top:20px; background:rgba(201,162,39,.15);
+  padding:18px; border-radius:15px;
 }
-
-
-
-
-.summary h3{
-
-    color:var(--gold);
-    margin-bottom:8px;
-
-}
-
-
-
-
+.summary h3{ color:var(--gold); margin-bottom:8px; }
 
 .share{
-
-    width:100%;
-    height:50px;
-    margin-top:15px;
-    background:#25D366;
-    border:none;
-    border-radius:14px;
-    color:white;
-    font-weight:700;
-    font-size:15px;
-
+  width:100%; height:50px; margin-top:15px; background:#25D366;
+  border:none; border-radius:14px; color:white; font-weight:700; font-size:15px;
+  cursor:pointer;
 }
 
-
-
+/* WASTE ROW */
+.waste-row{ display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.waste-row label{ margin-bottom:0; white-space:nowrap; font-size:14px; width:auto; }
+.waste-row input{ margin-bottom:0; flex:1; }
 
 @media(max-width:400px){
-
-.logo{
-
-font-size:26px;
-
+  .logo{ font-size:26px; }
+  .custom-inputs .input-row{ grid-template-columns:1fr; }
 }
-
-}
-
 </style>
-
 </head>
-
-
 <body>
 
-
 <div class="header">
-
-<div class="logo">
-Da Vinci Ceramics
+  <div class="logo">Da Vinci Ceramics</div>
+  <p>Professional Tile Quantity Calculator</p>
 </div>
-
-<p>Professional Tile Quantity Calculator</p>
-
-</div>
-
-
 
 <div class="container">
 
-    <div class="card">
+  <!-- PROJECT DETAILS -->
+  <div class="card">
+    <div class="title">Project Details</div>
 
-<div class="title">
-Project Details
-</div>
+    <label>Project Name</label>
+    <input id="project" placeholder="House / Hotel / Office">
 
+    <label>Total Area</label>
+    <input id="area" type="number" inputmode="decimal" placeholder="Enter area">
 
-<label>
-Project Name
-</label>
+    <label>Area Unit</label>
+    <select id="unit">
+      <option value="sqft">Square Feet (Sq Ft)</option>
+      <option value="sqm">Square Meter (Sq M)</option>
+    </select>
 
-<input 
-id="project" 
-placeholder="House / Hotel / Office">
+    <!-- Wastage -->
+    <label>Wastage / Cutting Allowance <span style="font-weight:400;color:#999;">(optional)</span></label>
+    <div class="waste-row">
+      <input id="wastage" type="number" inputmode="decimal" placeholder="e.g. 10" min="0" max="50" style="max-width:120px;">
+      <label style="font-weight:400; color:#555;">% — leave blank to skip</label>
+    </div>
+  </div>
 
+  <!-- TILE SIZE -->
+  <div class="card">
+    <div class="title">Select Tile Size</div>
 
-<label>
-Total Area
-</label>
+    <div class="tile-grid">
+      <div class="tile active" data-size="300x300">300 × 300 mm<small>1 × 1 ft</small></div>
+      <div class="tile" data-size="300x600">300 × 600 mm<small>1 × 2 ft</small></div>
+      <div class="tile" data-size="600x600">600 × 600 mm<small>2 × 2 ft</small></div>
+      <div class="tile" data-size="600x1200">600 × 1200 mm<small>2 × 4 ft</small></div>
+      <div class="tile" data-size="750x1500">750 × 1500 mm<small>2.5 × 5 ft</small></div>
+      <div class="tile" data-size="900x1800">900 × 1800 mm<small>3 × 6 ft</small></div>
+      <div class="tile" data-size="1200x1200">1200 × 1200 mm<small>4 × 4 ft</small></div>
+      <div class="tile" data-size="1200x2660">1200 × 2660 mm<small>4 × 8.8 ft</small></div>
+      <div class="tile" data-size="440x660">440 × 660 mm<small>1.4 × 2.2 ft</small></div>
 
-<input 
-id="area" 
-type="number"
-inputmode="decimal"
-placeholder="Enter area">
+      <!-- CUSTOM SIZE TILE -->
+      <div class="tile custom-tile" data-size="custom">
+        ➕ Custom Size
+        <small>Enter your own dimensions</small>
+      </div>
+    </div>
 
+    <!-- Custom size inputs — shown only when Custom is selected -->
+    <div class="custom-inputs" id="customInputs">
+      <p class="section-label">Enter Custom Tile Dimensions</p>
+      <div class="input-row">
+        <div>
+          <label>Width (mm)</label>
+          <input id="customW" type="number" inputmode="decimal" placeholder="e.g. 800" min="1">
+        </div>
+        <div>
+          <label>Height (mm)</label>
+          <input id="customH" type="number" inputmode="decimal" placeholder="e.g. 1600" min="1">
+        </div>
+      </div>
+      <div class="box-override">
+        <label>Tiles Per Box <span style="font-weight:400;color:#999;">(optional)</span></label>
+        <input id="customBoxQty" type="number" inputmode="decimal" placeholder="Leave blank to skip box calculation" min="1">
+      </div>
+      <p class="hint">💡 Coverage is calculated automatically from the dimensions you enter.</p>
+    </div>
+  </div>
 
-<label>
-Area Unit
-</label>
+  <!-- RESULT -->
+  <div class="card result">
+    <div class="title">Estimate Result</div>
 
-<select id="unit">
+    <div class="row"><span>Project</span><strong id="rProject">-</strong></div>
+    <div class="row"><span>Area</span><strong id="rArea">-</strong></div>
+    <div class="row"><span>Tile Size</span><strong id="rSize">-</strong></div>
+    <div class="row"><span>Coverage Per Tile</span><strong id="rCoverage">-</strong></div>
+    <div class="row" id="rowWastage" style="display:none;"><span>Wastage Added</span><strong id="rWastage">-</strong></div>
+    <div class="row"><span>Tiles Required</span><strong id="rTiles">-</strong></div>
+    <div class="row"><span>Boxes Required</span><strong id="rBoxes">-</strong></div>
 
-<option value="sqft">
-Square Feet (Sq Ft)
-</option>
+    <div class="summary" id="summary">Enter project details and calculate.</div>
 
-<option value="sqm">
-Square Meter (Sq M)
-</option>
+    <button class="share" onclick="shareWhatsApp()">Share Estimate on WhatsApp</button>
+  </div>
 
-</select>
-
-
-</div>
-
-
-
-
-
-<div class="card">
-
-<div class="title">
-Select Tile Size
-</div>
-
-
-
-<div class="tile-grid">
-
-
-
-<div class="tile active" data-size="300x300">
-300 × 300 mm
-<small>1 × 1 ft</small>
-</div>
-
-
-
-<div class="tile" data-size="300x600">
-300 × 600 mm
-<small>1 × 2 ft</small>
-</div>
-
-
-
-
-<div class="tile" data-size="600x600">
-600 × 600 mm
-<small>2 × 2 ft</small>
-</div>
-
-
-
-
-<div class="tile" data-size="600x1200">
-600 × 1200 mm
-<small>2 × 4 ft</small>
-</div>
-
-
-
-
-<div class="tile" data-size="750x1500">
-750 × 1500 mm
-<small>2.5 × 5 ft</small>
-</div>
-
-
-
-
-<div class="tile" data-size="900x1800">
-900 × 1800 mm
-<small>3 × 6 ft</small>
-</div>
-
-
-
-
-<div class="tile" data-size="1200x1200">
-1200 × 1200 mm
-<small>4 × 4 ft</small>
-</div>
-
-
-
-
-<div class="tile" data-size="1200x2660">
-1200 × 2660 mm
-<small>4 × 8.8 ft</small>
-</div>
-
-
-
-
-<div class="tile" data-size="440x660">
-440 × 660 mm
-<small>1.4 × 2.2 ft</small>
-</div>
-
-
+  <button class="calculate" onclick="calculate()">Calculate Tile Requirement</button>
 
 </div>
-
-
-</div>
-
-
-
-
-
-
-<div class="card result">
-
-
-<div class="title">
-Estimate Result
-</div>
-
-
-
-
-<div class="row">
-
-<span>
-Project
-</span>
-
-<strong id="rProject">
--
-</strong>
-
-</div>
-
-
-
-
-<div class="row">
-
-<span>
-Area
-</span>
-
-<strong id="rArea">
--
-</strong>
-
-</div>
-
-
-
-
-<div class="row">
-
-<span>
-Tile Size
-</span>
-
-<strong id="rSize">
--
-</strong>
-
-</div>
-
-
-
-
-<div class="row">
-
-<span>
-Coverage Per Tile
-</span>
-
-<strong id="rCoverage">
--
-</strong>
-
-</div>
-
-
-
-
-<div class="row">
-
-<span>
-Tiles Required
-</span>
-
-<strong id="rTiles">
--
-</strong>
-
-</div>
-
-
-
-
-<div class="row">
-
-<span>
-Boxes Required
-</span>
-
-<strong id="rBoxes">
--
-</strong>
-
-</div>
-
-
-
-
-
-<div class="summary" id="summary">
-
-Enter project details and calculate.
-
-</div>
-
-
-
-<button class="share" onclick="shareWhatsApp()">
-
-Share Estimate WhatsApp
-
-</button>
-
-
-
-</div>
-
-
-
-
-
-<button class="calculate" onclick="calculate()">
-
-Calculate Tile Requirement
-
-</button>
-
-
-
-</div>
-
-
-
 
 <script>
+let selectedTile = "300x300";
 
-
-let selectedTile="300x300";
-
-
-
-/*
-Update these values with actual Da Vinci Ceramic box packing.
-Value = tiles in one box
-*/
-
-
-const tilesPerBox={
-
-
-"300x300":11,
-
-"300x600":6,
-
-"600x600":4,
-
-"600x1200":2,
-
-"750x1500":2,
-
-"900x1800":1,
-
-"1200x1200":1,
-
-"1200x2660":1,
-
-"440x660":6
-
-
+// Tiles per box for preset sizes
+const tilesPerBox = {
+  "300x300":  11,
+  "300x600":   6,
+  "600x600":   4,
+  "600x1200":  2,
+  "750x1500":  2,
+  "900x1800":  1,
+  "1200x1200": 1,
+  "1200x2660": 1,
+  "440x660":   6
 };
 
+// Coverage in Sq Ft per tile for preset sizes
+const tileCoverage = {
+  "300x300":   1,
+  "300x600":   2,
+  "600x600":   4,
+  "600x1200":  8,
+  "750x1500":  12.5,
+  "900x1800":  18,
+  "1200x1200": 16,
+  "1200x2660": 35.2,
+  "440x660":   3.08
+};
 
+// Tile click handler
+document.querySelectorAll(".tile").forEach(tile => {
+  tile.onclick = function () {
+    document.querySelectorAll(".tile").forEach(t => t.classList.remove("active"));
+    this.classList.add("active");
+    selectedTile = this.dataset.size;
 
-
-document.querySelectorAll(".tile").forEach(tile=>{
-
-
-tile.onclick=function(){
-
-
-document.querySelectorAll(".tile")
-.forEach(t=>t.classList.remove("active"));
-
-
-
-this.classList.add("active");
-
-
-
-selectedTile=this.dataset.size;
-
-
-}
-
-
-
+    // Show / hide custom inputs
+    const customSection = document.getElementById("customInputs");
+    if (selectedTile === "custom") {
+      customSection.classList.add("visible");
+    } else {
+      customSection.classList.remove("visible");
+    }
+  };
 });
 
-function calculate(){
-
-
-let area = Number(
-document.getElementById("area").value
-);
-
-
-
-if(!area){
-
-alert("Please enter project area");
-
-return;
-
+function mmToSqFt(wMM, hMM) {
+  // 1 mm = 1/304.8 ft (exact fraction to avoid floating point drift)
+  const wFt = wMM / 304.8;
+  const hFt = hMM / 304.8;
+  // Round to 6 decimal places to avoid floating point errors like 0.999999
+  return Math.round(wFt * hFt * 1e6) / 1e6;
 }
 
+function calculate() {
+  let area = Number(document.getElementById("area").value);
+  if (!area || area <= 0) { alert("Please enter a valid project area."); return; }
 
+  const unit = document.getElementById("unit").value;
+  if (unit === "sqm") { area = area * 10.7639; }
 
-let unit =
-document.getElementById("unit").value;
+  const wastageRaw = document.getElementById("wastage").value;
+  const wastage = (wastageRaw !== "" && Number(wastageRaw) > 0) ? Number(wastageRaw) : 0;
+  const hasWastage = wastage > 0;
 
+  let coverage, boxQty, sizeLabel;
 
+  if (selectedTile === "custom") {
+    const cW = Number(document.getElementById("customW").value);
+    const cH = Number(document.getElementById("customH").value);
+    const cBoxRaw = document.getElementById("customBoxQty").value;
+    const cBox = cBoxRaw !== "" ? Number(cBoxRaw) : null;
 
-if(unit==="sqm"){
+    if (!cW || !cH || cW <= 0 || cH <= 0) {
+      alert("Please enter valid custom tile width and height (in mm)."); return;
+    }
 
-area = area * 10.7639;
+    coverage = mmToSqFt(cW, cH);
+    boxQty = (cBox && cBox > 0) ? cBox : null;
+    sizeLabel = cW + " × " + cH + " mm (Custom)";
+  } else {
+    coverage = tileCoverage[selectedTile];
+    boxQty = tilesPerBox[selectedTile];
+    sizeLabel = selectedTile + " mm";
+  }
 
+  // Base tiles needed
+  const baseTiles = Math.ceil(area / coverage);
+  // Apply wastage
+  const wastageExtra = Math.ceil(baseTiles * (wastage / 100));
+  const totalTiles = baseTiles + wastageExtra;
+  const boxes = boxQty ? Math.ceil(totalTiles / boxQty) : null;
+
+  // Display
+  document.getElementById("rProject").innerText  = document.getElementById("project").value || "Project";
+  document.getElementById("rArea").innerText      = area.toFixed(2) + " Sq Ft";
+  document.getElementById("rSize").innerText      = sizeLabel;
+  document.getElementById("rCoverage").innerText  = coverage.toFixed(4) + " Sq Ft";
+  if (hasWastage) {
+    document.getElementById("rowWastage").style.display = "flex";
+    document.getElementById("rWastage").innerText = wastage + "% (+" + wastageExtra + " tiles)";
+    document.getElementById("rTiles").innerText   = totalTiles + " Tiles (incl. wastage)";
+  } else {
+    document.getElementById("rowWastage").style.display = "none";
+    document.getElementById("rTiles").innerText   = totalTiles + " Tiles";
+  }
+  document.getElementById("rBoxes").innerText     = boxes !== null ? boxes + " Boxes" : "— (enter tiles per box to calculate)";
+
+  document.getElementById("summary").innerHTML = `
+    <h3>Recommended Requirement</h3><br>
+    Tiles Required: <b>${baseTiles} Tiles</b><br><br>
+    ${hasWastage ? `Wastage (${wastage}%): <b>+${wastageExtra} Tiles</b><br><br><b>Total: ${totalTiles} Tiles</b><br><br>` : ""}
+    ${boxes !== null ? `Estimated Boxes: <b>${boxes} Boxes</b>` : `<span style="font-size:12px;color:#aaa;">Box count skipped — enter tiles per box above to include it.</span>`}<br><br>
+    <span style="font-size:12px;opacity:.8;">Please confirm final quantity based on site measurements.</span>
+  `;
 }
 
-
-
-
-// Convert mm to feet
-
-let size = selectedTile.split("x");
-
-
-let widthMM = Number(size[0]);
-
-let heightMM = Number(size[1]);
-
-
-
-const tileCoverage = {
-
-"300x300":1,
-"300x600":2,
-"600x600":4,
-"600x1200":8,
-"750x1500":12.5,
-"900x1800":18,
-"1200x1200":16,
-"1200x2660":35.2,
-"440x660":3.08
-
-};
-
-
-let coverage = tileCoverage[selectedTile];
-
-
-
-
-// Tile calculation
-
-let requiredTiles = Math.ceil(
-area / coverage
-);
-
-
-
-
-// Box calculation
-
-let boxes = Math.ceil(
-requiredTiles / tilesPerBox[selectedTile]
-);
-
-
-
-
-
-
-document.getElementById("rProject").innerText =
-
-document.getElementById("project").value || "Project";
-
-
-
-document.getElementById("rArea").innerText =
-
-area.toFixed(2)+" Sq Ft";
-
-
-
-document.getElementById("rSize").innerText =
-
-selectedTile+" mm";
-
-
-
-document.getElementById("rCoverage").innerText =
-
-coverage.toFixed(2)+" Sq Ft";
-
-
-
-document.getElementById("rTiles").innerText =
-
-requiredTiles+" Tiles";
-
-
-
-document.getElementById("rBoxes").innerText =
-
-boxes+" Boxes";
-
-
-
-
-
-
-document.getElementById("summary").innerHTML =
-
-`
-
-<h3>Recommended Requirement</h3>
-
-<br>
-
-<b>${requiredTiles} Tiles</b>
-
-<br><br>
-
-Estimated Boxes:
-
-<b>${boxes} Boxes</b>
-
-<br><br>
-
-Please confirm final quantity based on site measurements.
-
-`;
-
-
-
+function shareWhatsApp() {
+  const message =
+    "Da Vinci Ceramics Tile Estimate\n\n" +
+    "Project: "   + document.getElementById("rProject").innerText  + "\n" +
+    "Area: "      + document.getElementById("rArea").innerText      + "\n" +
+    "Tile Size: " + document.getElementById("rSize").innerText      + "\n" +
+    (hasWastage ? "Wastage: " + document.getElementById("rWastage").innerText + "\n" : "") +
+    "Required Tiles: " + document.getElementById("rTiles").innerText + "\n" +
+    "Required Boxes: " + document.getElementById("rBoxes").innerText;
+
+  window.open("https://wa.me/?text=" + encodeURIComponent(message));
 }
-
-
-
-
-
-
-
-function shareWhatsApp(){
-
-
-
-let message =
-
-"Da Vinci Ceramics Tile Estimate\n\n"+
-
-"Project: "+
-document.getElementById("rProject").innerText+
-
-"\nArea: "+
-document.getElementById("rArea").innerText+
-
-"\nTile Size: "+
-document.getElementById("rSize").innerText+
-
-"\nRequired Tiles: "+
-document.getElementById("rTiles").innerText+
-
-"\nRequired Boxes: "+
-document.getElementById("rBoxes").innerText;
-
-
-
-window.open(
-
-"https://wa.me/?text="+
-
-encodeURIComponent(message)
-
-);
-
-
-
-}
-
-
 </script>
 
-
 </body>
-
 </html>
